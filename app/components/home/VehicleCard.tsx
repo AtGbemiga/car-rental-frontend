@@ -7,25 +7,21 @@ import { PriceSvg, SeatSvg, TransmissionSvg } from "./SvgVehicleCard";
 import SkeletonPage from "./ImgSkeleton";
 
 export const VehicleCard = ({ vehicle }: { vehicle: Vehicle }) => {
+  const { pictures, name, transmission, seat, price } = vehicle;
+  const isSingularSeat = seat === 1;
+
   return (
     <div className="col d-flex justify-content-center">
-      <Card
-        style={{
-          width: "18rem",
-          whiteSpace: "pre-line",
-        }}
-      >
+      <Card style={{ width: "18rem", whiteSpace: "pre-line" }}>
         <Suspense fallback={<SkeletonPage />}>
-          <Card.Img variant="top" src={vehicle.pictures[0]} />
+          <Card.Img variant="top" src={pictures[0]} />
         </Suspense>
         <Card.Body className="bg-white">
-          <Card.Title className="bg-white">{vehicle.name}</Card.Title>
+          <Card.Title className="bg-white">{name}</Card.Title>
           <Card.Text className="bg-white">
-            <TransmissionSvg /> {vehicle.transmission} {"\n"}
-            <SeatSvg /> {vehicle.seat} {vehicle.seat === 1 ? "seat" : "seats"}{" "}
-            {"\n"}
-            <PriceSvg />
-            {vehicle.price} {"/day"}
+            <TransmissionSvg /> {transmission} {"\n"}
+            <SeatSvg /> {seat} {isSingularSeat ? "seat" : "seats"} {"\n"}
+            <PriceSvg /> {price} {"/day"}
           </Card.Text>
           <Button variant="primary">Hire</Button>
         </Card.Body>

@@ -1,14 +1,14 @@
 export default async function getAllVehicles(): Promise<Vehicle[]> {
   const url = "https://brainy-clothes-fish.cyclic.app/api/v1/vehicles";
-  const res = await fetch(url, { next: { revalidate: 600 } });
+  const response = await fetch(url, { next: { revalidate: 600 } });
 
-  if (!res.ok) {
-    const errorResponse = await res.json();
+  if (!response.ok) {
+    const errorResponse = await response.json();
     throw new Error(
-      `Request failed with status ${res.status}, ${errorResponse}`
+      `Request failed with status ${response.status}, ${errorResponse}`
     );
   }
 
-  const data = await res.json();
+  const data = await response.json();
   return data.vehicles as Vehicle[];
 }
