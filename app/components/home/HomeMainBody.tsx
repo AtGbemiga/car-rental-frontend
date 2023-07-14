@@ -21,7 +21,6 @@ export default async function HomeMainBody() {
           {vehicles.map((vehicle) => (
             <>
               <VehicleCard vehicle={vehicle} />
-              <Link href={`/vehicles/${vehicle._id}`}>{vehicle.name}</Link>
             </>
           ))}
         </div>

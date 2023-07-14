@@ -1,5 +1,5 @@
 type Vehicle = {
-  _id: string | number;
+  _id: number;
   name: string;
   pictures: string;
   description: string;

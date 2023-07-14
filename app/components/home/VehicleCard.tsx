@@ -5,10 +5,10 @@ import Card from "react-bootstrap/Card";
 import { Suspense } from "react";
 import { PriceSvg, SeatSvg, TransmissionSvg } from "./SvgVehicleCard";
 import SkeletonPage from "./ImgSkeleton";
+import Link from "next/link";
 
 export const VehicleCard = ({ vehicle }: { vehicle: Vehicle }) => {
   const { pictures, name, transmission, seat, price } = vehicle;
-  const isSingularSeat = seat === 1;
 
   return (
     <div className="col d-flex justify-content-center">
@@ -20,10 +20,12 @@ export const VehicleCard = ({ vehicle }: { vehicle: Vehicle }) => {
           <Card.Title className="bg-white">{name}</Card.Title>
           <Card.Text className="bg-white">
             <TransmissionSvg /> {transmission} {"\n"}
-            <SeatSvg /> {seat} {isSingularSeat ? "seat" : "seats"} {"\n"}
+            <SeatSvg /> {seat} {seat === 1 ? "seat" : "seats"} {"\n"}
             <PriceSvg /> {price} {"/day"}
           </Card.Text>
-          <Button variant="primary">Hire</Button>
+          <Link href={`/vehicles/${vehicle._id}`}>
+            <Button variant="primary">Hire</Button>
+          </Link>
         </Card.Body>
       </Card>
     </div>
