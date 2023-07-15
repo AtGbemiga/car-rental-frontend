@@ -5,5 +5,6 @@ export default async function getVehicleDetails(vehicleId: string) {
   if (!response.ok) {
     return undefined;
   }
-  return response.json();
+  const data = await response.json();
+  return data.vehicle;
 }

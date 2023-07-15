@@ -5,10 +5,15 @@ import Card from "react-bootstrap/Card";
 import { Suspense } from "react";
 import { PriceSvg, SeatSvg, TransmissionSvg } from "./SvgVehicleCard";
 import SkeletonPage from "./ImgSkeleton";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const VehicleCard = ({ vehicle }: { vehicle: Vehicle }) => {
   const { pictures, name, transmission, seat, price } = vehicle;
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/vehicles/${vehicle._id}`);
+  };
 
   return (
     <div className="col d-flex justify-content-center">
@@ -23,9 +28,9 @@ export const VehicleCard = ({ vehicle }: { vehicle: Vehicle }) => {
             <SeatSvg /> {seat} {seat === 1 ? "seat" : "seats"} {"\n"}
             <PriceSvg /> {price} {"/day"}
           </Card.Text>
-          <Link href={`/vehicles/${vehicle._id}`}>
-            <Button variant="primary">Hire</Button>
-          </Link>
+          <Button variant="primary" onClick={handleClick}>
+            Hire
+          </Button>
         </Card.Body>
       </Card>
     </div>

@@ -14,7 +14,7 @@ export default async function Page({ params: { vehicleId } }: Params) {
     return <p>No vehicle found.</p>;
   }
 
-  const vehicle = response.vehicle; // Access the 'vehicle' object from the response
+  const vehicle = response; // Access the 'vehicle' object from the response
 
   return (
     <>
