@@ -1,3 +1,4 @@
+/* .ImgSkeleton.tsx */
 .frame {
   background-color: whitesmoke;
   padding: 1rem;
@@ -6,33 +7,62 @@
   border-radius: 1rem;
   box-shadow: 2px 2px 5px 2px whitesmoke;
 }
-
 .skeleton {
   background-color: rgb(199, 199, 199);
   margin: 0.75rem 0;
   border-radius: 0.25rem;
 }
-
 .skeleton.title {
   height: 1.25rem;
   margin-bottom: 1rem;
 }
-
 .skeleton.text {
   height: 0.75rem;
 }
-
 .skeleton.width-100 {
   width: 100%;
 }
-
-/* animation */
 @keyframes pulse {
   50% {
     opacity: 0.5;
   }
 }
-
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* SlantedTopContainer.tsx */
+.slanted_div {
+  position: relative;
+  padding: 200px 0;
+  background: #101010;
+  overflow: visible;
+  z-index: 1;
+  margin-top: 15vh;
+}
+.slanted_div:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #0275d8;
+  z-index: -1;
+  top: 0;
+  transform-origin: left top;
+  transform: skewY(-3deg);
+}
+.slanted_div .inner_div {
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 1.5;
+}
+.slanted_div:after {
+  bottom: 0;
+  transform-origin: left bottom;
+  transform: skewY(0deg);
+}
+@media only screen and (max-width: 720px) {
+  .slanted_div {
+    padding: 100px 0;
+  }
 }

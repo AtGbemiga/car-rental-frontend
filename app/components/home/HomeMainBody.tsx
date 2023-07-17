@@ -1,6 +1,8 @@
 import getAllVehicles from "@/lib/getAllVehicles";
 import { VehicleCard } from "./VehicleCard";
 import Link from "next/link";
+import { Suspense } from "react";
+import SkeletonPage from "./ImgSkeleton";
 
 export default async function HomeMainBody() {
   const vehicles = await getAllVehicles();
@@ -17,13 +19,15 @@ export default async function HomeMainBody() {
       </section>
 
       <section className="container-fluid">
-        <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
-          {vehicles.map((vehicle) => (
-            <>
-              <VehicleCard vehicle={vehicle} />
-            </>
-          ))}
-        </div>
+        <Suspense fallback={<SkeletonPage />}>
+          <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {vehicles.map((vehicle) => (
+              <>
+                <VehicleCard vehicle={vehicle} />
+              </>
+            ))}
+          </div>
+        </Suspense>
       </section>
     </div>
   );

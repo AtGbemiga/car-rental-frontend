@@ -18,9 +18,8 @@ export const VehicleCard = ({ vehicle }: { vehicle: Vehicle }) => {
   return (
     <div className="col d-flex justify-content-center">
       <Card style={{ width: "18rem", whiteSpace: "pre-line" }}>
-        <Suspense fallback={<SkeletonPage />}>
-          <Card.Img variant="top" src={pictures[0]} />
-        </Suspense>
+        <Card.Img variant="top" src={pictures[0]} />
+
         <Card.Body className="bg-white">
           <Card.Title className="bg-white">{name}</Card.Title>
           <Card.Text className="bg-white">

@@ -1,0 +1,54 @@
+.footer {
+  background: #101010;
+  padding: 86px 0;
+}
+.singlecontent {
+  text-align: center;
+  padding: 115px 0;
+}
+.singlebox p {
+  color: #fff;
+  line-height: 1.9;
+}
+.singlebox h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+.singlebox .card-area i {
+  color: #ffffff;
+  font-size: 20px;
+  margin-right: 10px;
+}
+.singlebox ul {
+  list-style: none;
+  padding: 0;
+}
+.singlebox ul li a {
+  text-decoration: none;
+  color: #fff;
+  line-height: 2.5;
+  font-weight: 100;
+}
+.singlebox h2 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+}
+#basicaddon2 {
+  color: #fff;
+}
+.footerBackground {
+  background-color: #101010;
+}
+
+@media (max-width: 767px) {
+  .singlebox {
+    margin-bottom: 50px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .singlebox {
+    margin-bottom: 50px;
+  }
+}

@@ -1,6 +1,6 @@
 export default async function getAllVehicles(): Promise<Vehicle[]> {
   const url = "https://brainy-clothes-fish.cyclic.app/api/v1/vehicles";
-  const response = await fetch(url, { next: { revalidate: 600 } });
+  const response = await fetch(url, { next: { revalidate: 0 } });
 
   if (!response.ok) {
     const errorResponse = await response.json();
