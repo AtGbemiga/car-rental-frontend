@@ -8,6 +8,7 @@ import {
   Paypal,
   Twitter,
 } from "./FooterIconsSvg";
+import FooterYear from "../date-fns/FooterYear";
 
 export default function Footer() {
   return (
@@ -119,7 +120,7 @@ export default function Footer() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Recipient's username"
+                  placeholder="Enter your Email"
                   aria-label="Enter your Email ..."
                   aria-describedby="basic-addon2"
                 />
@@ -145,8 +146,9 @@ export default function Footer() {
       </div>
       <small
         className={`position-absolute bottom-0 start-50 translate-middle ${styles.footerBackground} text-white`}
+        style={{ backgroundColor: "#101010" }}
       >
-        © 2023 Car Rental
+        © <FooterYear /> Car Rental
       </small>
     </footer>
   );

@@ -8,26 +8,26 @@ export default async function HomeMainBody() {
   const vehicles = await getAllVehicles();
 
   const content = (
-    <div>
-      <section className="container mb-3">
+    <div className="container-fluid mb-5">
+      <section className="mb-5 ps-lg-5 ps-md-5 ps-sm-3 ps-xs-2" /*mb-3*/>
         <h2
           style={{ color: "#8F4242" }}
-          className="bg-transparent m-0 p-0 text-center"
+          className="bg-transparent  " /** text-center m-0 p-0*/
         >
           Hit the road
         </h2>
       </section>
 
-      <section className="container-fluid">
-        <Suspense fallback={<SkeletonPage />}>
-          <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
-            {vehicles.map((vehicle) => (
-              <>
+      <section>
+        <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+          {vehicles.map((vehicle) => (
+            <>
+              <Suspense fallback={<SkeletonPage />}>
                 <VehicleCard vehicle={vehicle} />
-              </>
-            ))}
-          </div>
-        </Suspense>
+              </Suspense>
+            </>
+          ))}
+        </div>
       </section>
     </div>
   );
