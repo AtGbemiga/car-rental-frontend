@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import loginFunction from "@/lib/loginUser";
 
@@ -15,6 +15,7 @@ export const LoginForm = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -41,9 +42,13 @@ export const LoginForm = () => {
     }
 
     try {
-      await loginFunction(body);
+      startTransition(async () => {
+        isPending && (await loginFunction(body));
+
+        router.push("/profile");
+      });
+
       // Registration successful, redirect to profile page
-      router.push("/profile");
     } catch (error) {
       if (error instanceof Error && error.message.includes("401")) {
         // Handle duplicate account error
@@ -92,6 +97,7 @@ export const LoginForm = () => {
       <button
         type="submit"
         className="btn btn-primary mb-5 link-decoration-none"
+        disabled={isPending}
       >
         Login
       </button>

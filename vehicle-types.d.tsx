@@ -1,7 +1,7 @@
 type Vehicle = {
   _id: number;
   name: string;
-  pictures: string;
+  pictures: string[];
   description: string;
   colour: string;
   transmission: string;

@@ -148,7 +148,7 @@ export default function Footer() {
         className={`position-absolute bottom-0 start-50 translate-middle ${styles.footerBackground} text-white`}
         style={{ backgroundColor: "#101010" }}
       >
-        © <FooterYear /> Car Rental
+        © <FooterYear /> Car Rental. Made by Gbemiga Atolagbe
       </small>
     </footer>
   );

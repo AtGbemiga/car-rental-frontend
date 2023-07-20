@@ -71,7 +71,7 @@ export const SlantedTopReviewThree = () => {
           </h5>
 
           <p className="card-text">
-            Kyte is very convenient, clean, very reasonably priced, simple
+            Car rental is very convenient, clean, very reasonably priced, simple
             contract and a great experience.
           </p>
           <p>Leo</p>

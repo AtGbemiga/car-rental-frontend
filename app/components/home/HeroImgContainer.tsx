@@ -10,10 +10,18 @@ import { SignUpBtn } from "./SignUpBtn";
 
 export default function HeroImgContainer() {
   return (
-    <section className="position-relative">
+    <section
+      className="position-relative"
+      style={{ backgroundColor: "#f5f5f5" }}
+    >
       {["md"].map((expand) => (
-        <Navbar key={expand} expand={expand} className="bg-body-tertiary pb-0">
-          <Container fluid>
+        <Navbar
+          key={expand}
+          expand={expand}
+          className="bg-body-tertiary pb-0"
+          style={{ backgroundColor: "#f5f5f5" }}
+        >
+          <Container fluid style={{ backgroundColor: "#f5f5f5" }}>
             <Navbar.Brand href="/">Car Rental</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas

@@ -1,6 +1,6 @@
 export default async function getVehicleDetails(
   vehicleId: string
-): Promise<Vehicle[]> {
+): Promise<Vehicle> {
   const url = `https://brainy-clothes-fish.cyclic.app/api/v1/vehicles/${vehicleId}`;
   const response = await fetch(url, { next: { revalidate: 60 } });
 

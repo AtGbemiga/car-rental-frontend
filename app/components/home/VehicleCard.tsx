@@ -2,9 +2,7 @@
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { Suspense } from "react";
 import { PriceSvg, SeatSvg, TransmissionSvg } from "./SvgVehicleCard";
-import SkeletonPage from "./ImgSkeleton";
 import { useRouter } from "next/navigation";
 
 export const VehicleCard = ({ vehicle }: { vehicle: Vehicle }) => {
