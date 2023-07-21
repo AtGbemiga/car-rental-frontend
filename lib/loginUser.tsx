@@ -1,3 +1,6 @@
+// loginUser.tsx. This works don't change it
+import Cookies from "js-cookie";
+
 export default async function loginFunction(body: Auth) {
   const url = "https://brainy-clothes-fish.cyclic.app/api/v1/auth/login";
 
@@ -15,5 +18,13 @@ export default async function loginFunction(body: Auth) {
   }
 
   const data = await response.json();
+  Cookies.set("token", data.token, {
+    expires: 7,
+    path: "/",
+    secure: true,
+    sameSite: "strict",
+  });
+  console.log("token", data.token);
+
   return data;
 }
