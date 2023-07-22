@@ -7,8 +7,11 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { LoginBtn } from "../home/LoginBtn";
 import { SignUpBtn } from "../home/SignUpBtn";
 import { useState } from "react";
+import Cookies from "js-cookie";
+import { LogoutBtn } from "./LogOutBtn";
 
 export default function NavbarBox() {
+  const cookie = Cookies.get("token");
   useEffect(() => {
     // Enable the Navbar component only on the client-side
     setMounted(true);
@@ -18,6 +21,44 @@ export default function NavbarBox() {
 
   if (!mounted) {
     return null;
+  }
+
+  if (cookie) {
+    return (
+      <section>
+        {["md"].map((expand) => (
+          <Navbar
+            key={expand}
+            expand={expand}
+            className="bg-body-tertiary pb-0"
+            style={{ backgroundColor: "#f5f5f5" }}
+          >
+            <Container fluid style={{ backgroundColor: "#f5f5f5" }}>
+              <Navbar.Brand href="/">Car Rental</Navbar.Brand>
+              <Navbar.Toggle
+                aria-controls={`offcanvasNavbar-expand-${expand}`}
+              />
+              <Navbar.Offcanvas
+                id={`offcanvasNavbar-expand-${expand}`}
+                aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+                placement="end"
+              >
+                <Offcanvas.Header closeButton>
+                  <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                    Menu
+                  </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                  <Nav className="justify-content-end flex-grow-1 pe-3">
+                    <LogoutBtn />
+                  </Nav>
+                </Offcanvas.Body>
+              </Navbar.Offcanvas>
+            </Container>
+          </Navbar>
+        ))}
+      </section>
+    );
   }
 
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import loginFunction from "@/lib/loginUser";
 
@@ -40,23 +40,18 @@ export const LoginForm = () => {
       setEmailError(true);
       return; // Stop form submission
     }
-
     try {
-      startTransition(async () => {
-        isPending && (await loginFunction(body));
-
+      // never change the await/async here.
+      await startTransition(async () => {
+        await loginFunction(body);
         router.push("/profile");
       });
-
-      // Registration successful, redirect to profile page
     } catch (error) {
       if (error instanceof Error && error.message.includes("401")) {
-        // Handle duplicate account error
         setErrorMessage("Invalid Credentials.");
       } else {
-        // Handle other registration errors
-        setErrorMessage("Registration failed. Please try again later.");
-        console.error("Registration failed:", error);
+        setErrorMessage("Login failed. Please try again later.");
+        console.error("Login failed:", error);
       }
     }
   }

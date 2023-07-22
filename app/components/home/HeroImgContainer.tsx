@@ -1,12 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Container from "react-bootstrap/esm/Container";
-import Nav from "react-bootstrap/esm/Nav";
-import Navbar from "react-bootstrap/esm/Navbar";
-import Offcanvas from "react-bootstrap/esm/Offcanvas";
-import { LoginBtn } from "./LoginBtn";
-import { SignUpBtn } from "./SignUpBtn";
+import NavbarBox from "../global/Navbar";
 
 export default function HeroImgContainer() {
   return (
@@ -14,36 +9,7 @@ export default function HeroImgContainer() {
       className="position-relative"
       style={{ backgroundColor: "#f5f5f5" }}
     >
-      {["md"].map((expand) => (
-        <Navbar
-          key={expand}
-          expand={expand}
-          className="bg-body-tertiary pb-0"
-          style={{ backgroundColor: "#f5f5f5" }}
-        >
-          <Container fluid style={{ backgroundColor: "#f5f5f5" }}>
-            <Navbar.Brand href="/">Car Rental</Navbar.Brand>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Navbar.Offcanvas
-              id={`offcanvasNavbar-expand-${expand}`}
-              aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-              placement="end"
-            >
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Menu
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <LoginBtn />
-                  <SignUpBtn />
-                </Nav>
-              </Offcanvas.Body>
-            </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
-      ))}
+      <NavbarBox />
       <div className="position-relative">
         <Image
           src="/heroImg.png"
