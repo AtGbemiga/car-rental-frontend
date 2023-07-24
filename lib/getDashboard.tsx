@@ -5,7 +5,6 @@ export default async function getProfile(): Promise<GetDashboardResponse> {
 
   const token = Cookies.get("token");
   if (!token) {
-    console.log("No token in profile dashboard");
     throw new Error("No token found.");
   }
 
@@ -24,6 +23,6 @@ export default async function getProfile(): Promise<GetDashboardResponse> {
     );
   }
 
-  const data: GetDashboardResponse = await response.json();
-  return data;
+  const data = await response.json();
+  return data as GetDashboardResponse;
 }
