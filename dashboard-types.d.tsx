@@ -5,3 +5,10 @@ type GetDashboardResponse = {
     picture: string;
   }[];
 };
+
+type PostProfile = {
+  name: string;
+  description: string;
+  picture: FileList | string;
+  [key: string]: string | number | FileList;
+};

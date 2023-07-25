@@ -9,6 +9,7 @@ import { SignUpBtn } from "../home/SignUpBtn";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { LogoutBtn } from "./LogOutBtn";
+import { ProfileIcon } from "./NavbarSvg";
 
 export default function NavbarBox() {
   const cookie = Cookies.get("token");
@@ -50,6 +51,7 @@ export default function NavbarBox() {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
+                    <ProfileIcon />
                     <LogoutBtn />
                   </Nav>
                 </Offcanvas.Body>
