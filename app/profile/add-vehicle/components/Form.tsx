@@ -1,33 +1,29 @@
 "use client";
-
-import React, { useState } from "react";
+import { useState } from "react";
 import addVehicleFunction from "@/lib/addVehicle";
-
-type Visibility = "block" | "none";
-
-interface FileList {
-  readonly length: number;
-  item(index: number): File | null;
-  [index: number]: File;
-}
+import { useRouter } from "next/navigation";
+// type Visibility = "block" | "none";
 
 export const Form = () => {
+  const router = useRouter();
   const [formDataInputs, setFormDataInputs] = useState<AddVehicle>({
     name: "",
     seat: 0,
     price: 0,
     description: "",
     type: "",
-    pictures: [], // Update to FileList type
+    pictures: [],
     colour: "",
     transmission: "",
   });
-
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) {
     const { name, value, type } = event.target;
-
     if (type === "file") {
-      const fileList = event.target.files;
+      const fileList = (event.target as HTMLInputElement).files;
       if (fileList) {
         setFormDataInputs((prevFormData) => ({
           ...prevFormData,
@@ -41,18 +37,15 @@ export const Form = () => {
       }));
     }
   }
-
-  const [pictureVisibility, setPictureVisibility] =
-    useState<Visibility>("none");
-  function handlePicturesVisibility() {
-    setPictureVisibility((prevVisibility) =>
-      prevVisibility === "none" ? "block" : "none"
-    );
-  }
-
+  // const [pictureVisibility, setPictureVisibility] =
+  //   useState<Visibility>("none");
+  // function handlePicturesVisibility() {
+  //   setPictureVisibility((prevVisibility) =>
+  //     prevVisibility === "none" ? "block" : "none"
+  //   );
+  // }
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     const formDataBody = new FormData();
     for (const key in formDataInputs) {
       if (key === "pictures") {
@@ -64,20 +57,19 @@ export const Form = () => {
         formDataBody.append(key, String(formDataInputs[key]));
       }
     }
-
     try {
       const data = await addVehicleFunction(formDataBody);
       console.log(data); // Do something with the response data
+      router.push("/profile");
     } catch (error) {
       console.error(error);
     }
   }
-
   return (
     <form onSubmit={handleSubmit} encType="multipart/form-data">
       <div className="mb-3">
         <label htmlFor="name" className="form-label">
-          Name
+          Name*
         </label>
         <input
           onChange={handleChange}
@@ -86,30 +78,25 @@ export const Form = () => {
           id="name"
           aria-describedby="nameHelp"
           name="name"
+          value={formDataInputs.name}
         />
-        <div id="nameHelp" className="form-text">
-          We'll never share your name with anyone else.
-        </div>
       </div>
       <div className="mb-3">
         <label htmlFor="description" className="form-label">
-          Description
+          Description*
         </label>
-        <input
+        <textarea
           onChange={handleChange}
-          type="text"
           className="form-control"
           id="description"
           aria-describedby="descriptionHelp"
           name="description"
+          value={formDataInputs.description}
         />
-        <div id="descriptionHelp" className="form-text">
-          We'll never share your description with anyone else.
-        </div>
       </div>
       <div className="mb-3">
         <label htmlFor="colour" className="form-label">
-          Colour
+          Colour*
         </label>
         <input
           onChange={handleChange}
@@ -118,46 +105,59 @@ export const Form = () => {
           id="colour"
           aria-describedby="colourHelp"
           name="colour"
+          value={formDataInputs.colour}
         />
-        <div id="colourHelp" className="form-text">
-          We'll never share your colour with anyone else.
-        </div>
       </div>
       <div className="mb-3">
         <label htmlFor="transmission" className="form-label">
-          Transmission
-        </label>
-        <input
+          Transmission*
+        </label>{" "}
+        <select
           onChange={handleChange}
-          type="text"
-          className="form-control"
-          id="transmission"
-          aria-describedby="transmissionHelp"
           name="transmission"
-        />
-        <div id="transmissionHelp" className="form-text">
-          We'll never share your transmission with anyone else.
-        </div>
+          id="transmission"
+          value={formDataInputs.transmission}
+          aria-describedby="transmissionHelp"
+        >
+          <option value="" aria-describedby="">
+            --
+          </option>
+          <option value="Manual" aria-describedby="Manual">
+            Manual
+          </option>
+          <option value="Automatic" aria-describedby="Automatic">
+            Automatic
+          </option>
+        </select>
       </div>
       <div className="mb-3">
         <label htmlFor="type" className="form-label">
-          Type
-        </label>
-        <input
+          Type*
+        </label>{" "}
+        <select
           onChange={handleChange}
-          type="text"
-          className="form-control"
-          id="type"
-          aria-describedby="typeHelp"
           name="type"
-        />
-        <div id="typeHelp" className="form-text">
-          We'll never share your type with anyone else.
-        </div>
+          id="type"
+          value={formDataInputs.type}
+          aria-describedby="typeHelp"
+        >
+          <option value="" aria-describedby="">
+            --
+          </option>
+          <option value="Sedan" aria-describedby="Sedan">
+            Sedan
+          </option>
+          <option value="Suv" aria-describedby="Suv">
+            Suv
+          </option>
+          <option value="Truck" aria-describedby="Truck">
+            Truck
+          </option>
+        </select>
       </div>
       <div className="mb-3">
         <label htmlFor="seat" className="form-label">
-          Seat
+          Seat*
         </label>
         <input
           onChange={handleChange}
@@ -166,14 +166,12 @@ export const Form = () => {
           id="seat"
           aria-describedby="seatHelp"
           name="seat"
+          value={formDataInputs.seat}
         />
-        <div id="seatHelp" className="form-text">
-          We'll never share your seat with anyone else.
-        </div>
       </div>
       <div className="mb-3">
         <label htmlFor="price" className="form-label">
-          Price
+          Price*
         </label>
         <input
           onChange={handleChange}
@@ -182,16 +180,14 @@ export const Form = () => {
           id="price"
           aria-describedby="priceHelp"
           name="price"
+          value={formDataInputs.price}
         />
-        <div id="priceHelp" className="form-text">
-          We'll never share your price with anyone else.
-        </div>
       </div>
-
       <div className="mb-3">
         <label htmlFor="pictures" className="form-label">
-          Picture
+          Picture*
         </label>
+        <i>(select 1 to 5)</i>
         <input
           onChange={handleChange}
           type="file"
@@ -199,16 +195,17 @@ export const Form = () => {
           id="pictures"
           aria-describedby="picturesHelp"
           name="pictures"
+          multiple
         />
-        <div id="picturesHelp" className="form-text">
-          We'll never share your pictures with anyone else.
-        </div>
       </div>
+      {/* 
       <input
         onClick={handlePicturesVisibility}
-        className="btn btn-link"
+        className="btn btn-link ps-0 text-decoration-none"
         value="Add more pictures"
+        type="button"
       />
+      
       <section style={{ display: pictureVisibility }}>
         <div className="mb-3">
           <label htmlFor="pictures" className="form-label">
@@ -222,12 +219,10 @@ export const Form = () => {
             aria-describedby="picturesHelp"
             name="pictures"
           />
-          <div id="picturesHelp" className="form-text">
-            We'll never share your pictures with anyone else.
-          </div>
         </div>
-      </section>
-
+      </section> */}
+      <br />
+      <br />
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
