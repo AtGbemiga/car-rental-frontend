@@ -1,6 +1,9 @@
+// HC
+
 import getVehicleDetails from "@/lib/getVehicleDetails";
 import ImagesContainer from "./components/ImagesContainer";
 import { Metadata } from "next";
+import Form from "./components/Form";
 
 type Params = {
   params: {
@@ -29,16 +32,15 @@ export async function generateMetadata({
 export default async function Page({ params: { vehicleId } }: Params) {
   const response = await getVehicleDetails(vehicleId);
 
-  // Check if any vehicle data exists
   if (!response) {
-    return null; // Return null instead of JSX elements
+    return null;
   }
 
-  const vehicle = response; // Access the 'vehicle' object from the response
+  const vehicle = response;
 
   return (
     <>
-      <section className="container vh-100 pt-5">
+      <section className="container pt-5">
         <div className="row">
           <div className="col-lg-6 col-md-6  col-sm-12 col-xs-12">
             <ImagesContainer vehicle={vehicle} />
@@ -67,14 +69,7 @@ export default async function Page({ params: { vehicleId } }: Params) {
           </section>
         </div>
         <section>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti,
-            asperiores ab! Possimus cumque consectetur delectus sunt rerum, amet
-            esse rem, ea officiis vel dicta, optio vitae quos unde debitis magni
-            nesciunt ex odio. Iusto, vel nisi perspiciatis exercitationem et
-            libero nemo possimus optio error, officia tempora, ullam molestias
-            cum maiores?
-          </p>
+          <Form vehicle={vehicle} /> {/* Pass the vehicle object as a prop */}
         </section>
       </section>
     </>

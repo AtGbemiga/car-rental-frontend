@@ -26,8 +26,6 @@ const ImagesContainer = ({ vehicle }: VehicleProps) => {
         delay: 2500,
         disableOnInteraction: false,
       }}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
       style={{
         height: "100%",
         minHeight: 300,
