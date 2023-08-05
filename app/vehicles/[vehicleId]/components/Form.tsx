@@ -4,6 +4,7 @@
 import { useState } from "react";
 import sendFormWithVehicleDetails from "@/lib/postHire";
 import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 export default function Form({ vehicle }: { vehicle: Vehicle }) {
   const router = useRouter();
   const [note, setNote] = useState("");
@@ -34,8 +35,9 @@ export default function Form({ vehicle }: { vehicle: Vehicle }) {
     formDataBody.append("pictures", pictureURLsJSON);
 
     try {
-      const data = await sendFormWithVehicleDetails(formDataBody);
-      router.push("/hires");
+      await sendFormWithVehicleDetails(formDataBody);
+      router.push("/profile/hires");
+      revalidatePath("/profile/hires");
     } catch (error) {
       console.error(error);
     }

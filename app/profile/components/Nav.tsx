@@ -9,6 +9,10 @@ export const Nav = () => {
       <Link href="/profile/add-vehicle" className="text-decoration-none">
         Add Vehicle
       </Link>
+      <br />
+      <Link href="/profile/hires" className="text-decoration-none">
+        Hires
+      </Link>
     </div>
   );
 };
