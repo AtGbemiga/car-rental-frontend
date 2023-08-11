@@ -1,5 +1,3 @@
-// HC
-
 type FormDetails = {
   name: string;
   pictures: string[];

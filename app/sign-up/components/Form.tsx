@@ -14,6 +14,7 @@ export const SignUpForm = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -44,13 +45,14 @@ export const SignUpForm = () => {
       // Registration successful, redirect to profile page
       router.push("/profile");
     } catch (error) {
-      if (error instanceof Error && error.message.includes("400")) {
+      if (error instanceof Error && error.message.includes("Duplicate")) {
+        console.log("Err", error.message);
+        setErrorMessage("Email already exists");
         // Handle duplicate account error
-        setErrorMessage("This email is already registered. Login instead.");
+      } else if (error instanceof Error && error.message.includes("password")) {
+        setPasswordError("Please provide password");
       } else {
-        // Handle other registration errors
-        setErrorMessage("Registration failed. Please try again later.");
-        console.error("Registration failed:", error);
+        setErrorMessage("Failed");
       }
     }
   }
@@ -92,7 +94,11 @@ export const SignUpForm = () => {
         name="signUpPassword"
         onChange={handleChange}
       />
-
+      <div id="emailHelpText" className="form-text">
+        {passwordError !== "" && (
+          <p className="error-message text-danger">{passwordError}</p>
+        )}
+      </div>
       <button
         type="submit"
         className="btn btn-primary mb-5 link-decoration-none"

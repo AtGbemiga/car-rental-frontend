@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useTransition, useEffect } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import loginFunction from "@/lib/loginUser";
 
@@ -40,20 +40,22 @@ export const LoginForm = () => {
       setEmailError(true);
       return; // Stop form submission
     }
-    try {
-      // never change the await/async here.
-      await startTransition(async () => {
+
+    startTransition(async () => {
+      try {
         await loginFunction(body);
         router.push("/profile");
-      });
-    } catch (error) {
-      if (error instanceof Error && error.message.includes("401")) {
-        setErrorMessage("Invalid Credentials.");
-      } else {
-        setErrorMessage("Login failed. Please try again later.");
-        console.error("Login failed:", error);
+      } catch (error) {
+        console.log("Err", error);
+        if (error instanceof Error && error.message.includes("401")) {
+          setErrorMessage("Invalid Credentials");
+        } else if (error instanceof Error && error.message.includes("400")) {
+          setErrorMessage("Fill all fields");
+        } else {
+          setErrorMessage("Login failed. Please try again later.");
+        }
       }
-    }
+    });
   }
 
   return (
@@ -96,9 +98,9 @@ export const LoginForm = () => {
       >
         Login
       </button>
-      {errorMessage && (
-        <p className="error-message text-danger">{errorMessage}</p>
-      )}
+
+      <p className="error-message text-danger">{errorMessage}</p>
+
       <article>
         Don't have an account?{" "}
         <Link href="/sign-up" className="text-decoration-none">

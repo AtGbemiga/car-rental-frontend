@@ -1,8 +1,7 @@
-// loginUser.tsx. This works don't change it
 import Cookies from "js-cookie";
 
 export default async function loginFunction(body: Auth) {
-  const url = "https://brainy-clothes-fish.cyclic.app/api/v1/auth/login";
+  const url = "http://127.0.0.1:3000/api/v1/auth/login";
 
   const response = await fetch(url, {
     method: "POST",
@@ -24,7 +23,6 @@ export default async function loginFunction(body: Auth) {
     secure: true,
     sameSite: "strict",
   });
-  console.log("token", data.token);
 
   return data;
 }

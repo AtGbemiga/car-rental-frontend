@@ -1,15 +1,20 @@
-// HC
 "use client";
 
 import { useState } from "react";
 import sendFormWithVehicleDetails from "@/lib/postHire";
 import { useRouter } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import Cookies from "js-cookie";
+
 export default function Form({ vehicle }: { vehicle: Vehicle }) {
+  const token = Cookies.get("token");
   const router = useRouter();
   const [note, setNote] = useState("");
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!token) {
+      router.push("/login");
+    }
     const formDataBody = new FormData();
     formDataBody.append("name", vehicle.name);
     formDataBody.append("description", vehicle.description);

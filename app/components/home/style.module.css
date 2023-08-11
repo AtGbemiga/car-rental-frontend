@@ -1,4 +1,8 @@
+.main {
+  background-color: #f8f9fa;
+}
 /* .ImgSkeleton.tsx */
+
 .frame {
   background-color: whitesmoke;
   padding: 1rem;
@@ -64,5 +68,18 @@
 @media only screen and (max-width: 720px) {
   .slanted_div {
     padding: 100px 0;
+  }
+}
+
+/* HomeImgContainer.tsx */
+@media (max-width: 576px) {
+  .custom_min_height {
+    min-height: 40vh;
+  }
+}
+
+@media (min-width: 700px) {
+  .custom_min_height {
+    min-height: 70vh;
   }
 }

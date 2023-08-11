@@ -1,5 +1,3 @@
-// HC
-
 import getVehicleDetails from "@/lib/getVehicleDetails";
 import ImagesContainer from "./components/ImagesContainer";
 import { Metadata } from "next";

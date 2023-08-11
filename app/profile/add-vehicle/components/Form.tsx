@@ -2,10 +2,10 @@
 import { useState } from "react";
 import addVehicleFunction from "@/lib/addVehicle";
 import { useRouter } from "next/navigation";
-// type Visibility = "block" | "none";
 
 export const Form = () => {
   const router = useRouter();
+  const [disableBtn, setDisableBtn] = useState(false);
   const [formDataInputs, setFormDataInputs] = useState<AddVehicle>({
     name: "",
     seat: 0,
@@ -37,13 +37,6 @@ export const Form = () => {
       }));
     }
   }
-  // const [pictureVisibility, setPictureVisibility] =
-  //   useState<Visibility>("none");
-  // function handlePicturesVisibility() {
-  //   setPictureVisibility((prevVisibility) =>
-  //     prevVisibility === "none" ? "block" : "none"
-  //   );
-  // }
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formDataBody = new FormData();
@@ -58,8 +51,9 @@ export const Form = () => {
       }
     }
     try {
-      const data = await addVehicleFunction(formDataBody);
-      console.log(data); // Do something with the response data
+      setDisableBtn(true);
+      await addVehicleFunction(formDataBody);
+
       router.push("/profile");
     } catch (error) {
       console.error(error);
@@ -198,32 +192,9 @@ export const Form = () => {
           multiple
         />
       </div>
-      {/* 
-      <input
-        onClick={handlePicturesVisibility}
-        className="btn btn-link ps-0 text-decoration-none"
-        value="Add more pictures"
-        type="button"
-      />
-      
-      <section style={{ display: pictureVisibility }}>
-        <div className="mb-3">
-          <label htmlFor="pictures" className="form-label">
-            Picture
-          </label>
-          <input
-            onChange={handleChange}
-            type="file"
-            className="form-control"
-            id="pictures"
-            aria-describedby="picturesHelp"
-            name="pictures"
-          />
-        </div>
-      </section> */}
       <br />
       <br />
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary" disabled={disableBtn}>
         Submit
       </button>
     </form>

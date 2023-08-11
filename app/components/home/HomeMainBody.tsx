@@ -11,11 +11,8 @@ export default async function HomeMainBody() {
       className="container-fluid mb-5"
       style={{ backgroundColor: "#f8f9fa" }}
     >
-      <section className="mb-5 ps-lg-5 ps-md-5 ps-sm-3 ps-xs-2" /*mb-3*/>
-        <h2
-          style={{ color: "#8F4242" }}
-          className="bg-transparent  " /** text-center m-0 p-0*/
-        >
+      <section className="mb-5 ps-lg-5 ps-md-5 ps-sm-3 ps-xs-2">
+        <h2 style={{ color: "#8F4242" }} className="bg-transparent">
           Hit the road
         </h2>
       </section>

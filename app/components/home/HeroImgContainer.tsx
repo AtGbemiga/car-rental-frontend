@@ -1,7 +1,7 @@
 "use client";
-
 import Image from "next/image";
 import NavbarBox from "../global/Navbar";
+import styles from "./style.module.css";
 
 export default function HeroImgContainer() {
   return (
@@ -20,8 +20,7 @@ export default function HeroImgContainer() {
           className="d-none d-sm-block"
         />
         <div
-          className="d-flex align-items-center ps-lg-5 ps-md-5 ps-sm-3 ps-xs-2"
-          style={{ height: "70vh" }}
+          className={`${styles.custom_min_height} d-flex align-items-center ps-md-5 ps-sm-3 ps-xs-2`}
         >
           <div className="bg-transparent text-dark position-relative text-start col-lg-6 col-md-6 col-sm-6 ps-sm-4">
             <h1 className="col-lg-12 col-md-12 bg-transparent">

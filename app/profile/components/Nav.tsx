@@ -1,7 +1,8 @@
 import Link from "next/link";
+import styles from "../styles.module.css";
 export const Nav = () => {
   return (
-    <div className=" sm-vh-20 vh-100 sticky-top d-flex flex-column align-items-center pt-5">
+    <div className={`pt-5 sticky-top ${styles.profile_nav_css} `}>
       <Link href="/profile" className="text-decoration-none">
         Dashboard
       </Link>
