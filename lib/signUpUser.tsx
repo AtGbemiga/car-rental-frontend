@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 export default async function signUpFunction(body: Auth) {
-  const url = "http://localhost:3000/api/v1/auth/register";
+  const url = "https://brainy-clothes-fish.cyclic.app/api/v1/auth/register";
   const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

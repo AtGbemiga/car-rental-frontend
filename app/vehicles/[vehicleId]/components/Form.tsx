@@ -5,11 +5,19 @@ import sendFormWithVehicleDetails from "@/lib/postHire";
 import { useRouter } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import Cookies from "js-cookie";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Form({ vehicle }: { vehicle: Vehicle }) {
   const token = Cookies.get("token");
   const router = useRouter();
-  const [note, setNote] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [returnAddress, setReturnAddress] = useState("");
+  const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
+    null,
+    null,
+  ]);
+  const [startDate, endDate] = dateRange;
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!token) {
@@ -23,7 +31,9 @@ export default function Form({ vehicle }: { vehicle: Vehicle }) {
     formDataBody.append("type", vehicle.type);
     formDataBody.append("seat", String(vehicle.seat));
     formDataBody.append("price", String(vehicle.price));
-    formDataBody.append("note", note);
+    formDataBody.append("deliveryAddress", deliveryAddress);
+    formDataBody.append("dateRange", JSON.stringify(dateRange));
+    formDataBody.append("returnAddress", returnAddress);
 
     // Create an array of picture URLs
     const pictureURLs = [];
@@ -48,25 +58,55 @@ export default function Form({ vehicle }: { vehicle: Vehicle }) {
     }
   }
 
+  const disabled = !deliveryAddress || !returnAddress || !startDate || !endDate;
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="mb-3">
-        <label htmlFor="examplenote1" className="form-label">
-          Add note
+    <form onSubmit={handleSubmit} className="py-5">
+      <p>Select delivery & return dates</p>
+      <DatePicker
+        showIcon
+        selectsRange={true}
+        startDate={startDate}
+        endDate={endDate}
+        onChange={(update) => {
+          setDateRange(update);
+        }}
+        minDate={new Date()}
+        withPortal
+        placeholderText="start date - end date"
+      />
+      <div className="mb-3 pt-3">
+        <label htmlFor="deliveryAddress" className="form-label">
+          Delivery address
         </label>
         <input
           type="text"
           className="form-control"
-          id="examplenote1"
-          aria-describedby="textHelp"
-          placeholder="Bring umbrellas"
-          value={note}
+          id="deliveryAddress"
+          aria-describedby="deliveryAddress"
+          value={deliveryAddress}
           onChange={(e) => {
-            setNote(e.target.value);
+            setDeliveryAddress(e.target.value);
           }}
         />
       </div>
-      <button type="submit" className="btn btn-primary">
+      <div className="mb-3">
+        <label htmlFor="returnAddress" className="form-label">
+          Return address
+        </label>
+        <input
+          name="returnAddress"
+          type="text"
+          className="form-control"
+          id="returnAddress"
+          aria-describedby="returnAddress"
+          value={returnAddress}
+          onChange={(e) => {
+            setReturnAddress(e.target.value);
+          }}
+        />
+      </div>
+      <button type="submit" className="btn btn-primary" disabled={disabled}>
         Submit
       </button>
     </form>

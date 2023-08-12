@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 
 export default async function getProfile(): Promise<GetDashboardResponse> {
-  const url = "http://127.0.0.1:3000/api/v1/profile";
+  const url = "https://brainy-clothes-fish.cyclic.app/api/v1/profile";
 
   const token = Cookies.get("token");
   if (!token) {

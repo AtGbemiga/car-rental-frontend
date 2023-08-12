@@ -1,12 +1,13 @@
 type FormDetails = {
-  name: string;
-  pictures: string[];
-  description: string;
-  colour: string;
-  transmission: string;
-  type: string;
-  seat: number;
-  price: number;
+  // name: string;
+  // pictures: string[];
+  // description: string;
+  // colour: string;
+  // transmission: string;
+  // type: string;
+  // seat: number;
+  // price: number;
+  // dateRange: Date;
 };
 
 type GetHireResponse = {
@@ -20,6 +21,11 @@ type GetHireResponse = {
     type: string;
     seat: number;
     price: number;
-    note: string;
+    dateRange: {
+      startDate: string;
+      endDate: string;
+    };
+    deliveryAddress: string;
+    returnAddress: string;
   }[];
 };

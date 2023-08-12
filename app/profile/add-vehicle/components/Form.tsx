@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation";
 
 export const Form = () => {
   const router = useRouter();
-  const [disableBtn, setDisableBtn] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false); // for when the handleSubmit is clicked.
   const [formDataInputs, setFormDataInputs] = useState<AddVehicle>({
     name: "",
-    seat: 0,
-    price: 0,
+    seat: null,
+    price: null,
     description: "",
     type: "",
     pictures: [],
@@ -53,17 +53,29 @@ export const Form = () => {
     try {
       setDisableBtn(true);
       await addVehicleFunction(formDataBody);
-
       router.push("/profile");
     } catch (error) {
       console.error(error);
+      setDisableBtn(false);
     }
   }
+  // for before the handleSubmit is clicked.
+  const disabled =
+    !formDataInputs.colour ||
+    !formDataInputs.description ||
+    !formDataInputs.name ||
+    formDataInputs.pictures.length === 0 ||
+    !formDataInputs.price ||
+    !formDataInputs.seat ||
+    !formDataInputs.transmission ||
+    !formDataInputs.type ||
+    disableBtn;
+
   return (
     <form onSubmit={handleSubmit} encType="multipart/form-data">
       <div className="mb-3">
         <label htmlFor="name" className="form-label">
-          Name*
+          Name
         </label>
         <input
           onChange={handleChange}
@@ -73,11 +85,12 @@ export const Form = () => {
           aria-describedby="nameHelp"
           name="name"
           value={formDataInputs.name}
+          placeholder="Min of 3 characters"
         />
       </div>
       <div className="mb-3">
         <label htmlFor="description" className="form-label">
-          Description*
+          Description
         </label>
         <textarea
           onChange={handleChange}
@@ -86,11 +99,12 @@ export const Form = () => {
           aria-describedby="descriptionHelp"
           name="description"
           value={formDataInputs.description}
+          placeholder="Min of 50 characters"
         />
       </div>
       <div className="mb-3">
         <label htmlFor="colour" className="form-label">
-          Colour*
+          Colour
         </label>
         <input
           onChange={handleChange}
@@ -104,7 +118,7 @@ export const Form = () => {
       </div>
       <div className="mb-3">
         <label htmlFor="transmission" className="form-label">
-          Transmission*
+          Transmission
         </label>{" "}
         <select
           onChange={handleChange}
@@ -113,7 +127,7 @@ export const Form = () => {
           value={formDataInputs.transmission}
           aria-describedby="transmissionHelp"
         >
-          <option value="" aria-describedby="">
+          <option value="" aria-describedby="" disabled>
             --
           </option>
           <option value="Manual" aria-describedby="Manual">
@@ -126,7 +140,7 @@ export const Form = () => {
       </div>
       <div className="mb-3">
         <label htmlFor="type" className="form-label">
-          Type*
+          Type
         </label>{" "}
         <select
           onChange={handleChange}
@@ -135,7 +149,7 @@ export const Form = () => {
           value={formDataInputs.type}
           aria-describedby="typeHelp"
         >
-          <option value="" aria-describedby="">
+          <option value="" aria-describedby="" disabled>
             --
           </option>
           <option value="Sedan" aria-describedby="Sedan">
@@ -151,7 +165,7 @@ export const Form = () => {
       </div>
       <div className="mb-3">
         <label htmlFor="seat" className="form-label">
-          Seat*
+          Seat
         </label>
         <input
           onChange={handleChange}
@@ -160,12 +174,12 @@ export const Form = () => {
           id="seat"
           aria-describedby="seatHelp"
           name="seat"
-          value={formDataInputs.seat}
+          value={formDataInputs.seat !== null ? formDataInputs.seat : ""}
         />
       </div>
       <div className="mb-3">
         <label htmlFor="price" className="form-label">
-          Price*
+          Price
         </label>
         <input
           onChange={handleChange}
@@ -174,14 +188,14 @@ export const Form = () => {
           id="price"
           aria-describedby="priceHelp"
           name="price"
-          value={formDataInputs.price}
+          value={formDataInputs.price !== null ? formDataInputs.price : ""}
         />
       </div>
       <div className="mb-3">
         <label htmlFor="pictures" className="form-label">
-          Picture*
+          Picture
         </label>
-        <i>(select 1 to 5)</i>
+        <i>(select 1 to 5. {"<"} 1mb each)</i>
         <input
           onChange={handleChange}
           type="file"
@@ -194,7 +208,7 @@ export const Form = () => {
       </div>
       <br />
       <br />
-      <button type="submit" className="btn btn-primary" disabled={disableBtn}>
+      <button type="submit" className="btn btn-primary" disabled={disabled}>
         Submit
       </button>
     </form>
