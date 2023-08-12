@@ -4,7 +4,7 @@ This app allows you to search for renting vehicles or renting out yours. Notable
 
 The technologies used are: Next js, Typescript, Bootstrap and [more](https://github.com/AtGbemiga/car-rental-frontend/blob/main/package.json)
 
-The Backend is written in Node.js and hosted by [Vercel](https://vercel.com/) using [Vercel Serverless Functions](https://vercel.com/docs/concepts/functions/serverless-functions), 
+The [Backend](https://github.com/AtGbemiga/car-rental-backend) is written in Node.js and hosted by [Vercel](https://vercel.com/) using [Vercel Serverless Functions](https://vercel.com/docs/concepts/functions/serverless-functions), 
 to safely store the API-Key while accessing the API.
 
 
