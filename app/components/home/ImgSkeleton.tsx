@@ -11,7 +11,7 @@ const SkeletonPost: React.FC<SkeletonProps> = ({ classes }) => {
 
 const SkeletonPage = () => {
   return (
-    <div className={styles.frame}>
+    <div className={styles.frame} style={{ width: "15rem" }}>
       <SkeletonPost classes={styles.title + " " + styles["width-50"]} />
     </div>
   );

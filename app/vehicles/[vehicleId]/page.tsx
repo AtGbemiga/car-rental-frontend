@@ -50,7 +50,7 @@ export default async function Page({ params: { vehicleId } }: Params) {
               {vehicle.seat}
             </p>
             <p>
-              <strong>Price:</strong> {vehicle.price}
+              <strong>Price:</strong> ${vehicle.price}
             </p>
             <p>
               <strong>Description:</strong> {vehicle.description}
