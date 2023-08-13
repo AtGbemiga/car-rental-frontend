@@ -113,8 +113,8 @@ export default function Footer() {
               <h2 className={styles.footerBackground}>Newsletter</h2>
               <p className={styles.footerBackground}>
                 Stay up-to-date with the latest news, exclusive offers, and
-                exciting updates by subscribing to our newsletter. Don't miss
-                out!
+                exciting updates by subscribing to our newsletter. Don&apos;t
+                miss out!
               </p>
               <div className="input-group mb-3">
                 <input
