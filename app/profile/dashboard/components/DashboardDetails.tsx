@@ -33,7 +33,7 @@ export const DashboardDetails = () => {
     return (
       <div className="container py-5 d-flex justify-content-center">
         <div style={{ width: "30%" }}>
-          <h6>You've no profile</h6>
+          <h6>You&apos;ve no profile</h6>
           <Link href="/profile/create-profile" className="btn btn-primary">
             Create a profile
           </Link>

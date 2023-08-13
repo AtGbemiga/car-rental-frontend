@@ -29,7 +29,7 @@ export default function Footer() {
                 style={{ width: "100%" }}
               />
               <p className={`m-0 py-4 ${styles.footerBackground}`}>
-                Car Rental is the answer to a lot of questions we’ve asked
+                Car Rental is the answer to a lot of questions we&apos;ve asked
                 ourselves: what do we want our cities to look like in the
                 future?
               </p>
