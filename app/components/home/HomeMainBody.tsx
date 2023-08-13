@@ -7,18 +7,18 @@ import SkeletonPage from "./ImgSkeleton";
 import Pagination from "./Pagination";
 
 export default function HomeMainBody() {
-  const [vehicles, setVehicles] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true); // Set loading to true before fetching data
+      setIsLoading(true);
       const data = await getAllVehicles(currentPage);
       setVehicles(data.vehicles);
       setTotalPage(Math.ceil(data.count / 3));
-      setIsLoading(false); // Set loading to false after data is fetched
+      setIsLoading(false);
     };
     fetchData();
   }, [currentPage]);
@@ -43,7 +43,7 @@ export default function HomeMainBody() {
         ) : (
           <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
             {vehicles.map((vehicle) => (
-              <div className="col">
+              <div className="col" key={vehicle._id}>
                 <VehicleCard vehicle={vehicle} />
               </div>
             ))}

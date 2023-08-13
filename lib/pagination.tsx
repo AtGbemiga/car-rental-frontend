@@ -1,5 +1,5 @@
 export default async function getAllVehicles(pageVariable: number) {
-  const url = "https://brainy-clothes-fish.cyclic.app/api/v1/vehicles";
+  const url = "http://127.0.0.1:3000/api/v1/vehicles";
   const params = new URLSearchParams({
     page: pageVariable.toString(),
   });
