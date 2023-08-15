@@ -1,3 +1,4 @@
+// CF
 "use client";
 import getAllHireFunction from "@/lib/getAllHire";
 import { useState, useEffect } from "react";

@@ -1,6 +1,3 @@
-// Pagination.tsx
-import React from "react";
-
 interface Props {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;

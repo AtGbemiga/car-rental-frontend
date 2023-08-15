@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import NavbarBox from "../global/Navbar";
 import styles from "./style.module.css";

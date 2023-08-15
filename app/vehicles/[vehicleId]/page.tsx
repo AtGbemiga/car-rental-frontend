@@ -2,12 +2,13 @@ import getVehicleDetails from "@/lib/getVehicleDetails";
 import ImagesContainer from "./components/ImagesContainer";
 import { Metadata } from "next";
 import Form from "./components/Form";
+import getAllVehicles from "@/lib/getAllVehicles";
 
-type Params = {
+interface Params {
   params: {
     vehicleId: string;
   };
-};
+}
 
 export async function generateMetadata({
   params: { vehicleId },
@@ -25,6 +26,15 @@ export async function generateMetadata({
     title: vehicle.name,
     description: `This is the page of ${vehicle.name}`,
   };
+}
+
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const vehicleData: Promise<Vehicle[]> = getAllVehicles();
+  const vehicles = await vehicleData;
+
+  return vehicles.map((vehicleId) => ({ vehicleId: vehicleId._id }));
 }
 
 export default async function Page({ params: { vehicleId } }: Params) {
@@ -67,7 +77,7 @@ export default async function Page({ params: { vehicleId } }: Params) {
           </section>
         </div>
         <section>
-          <Form vehicle={vehicle} /> {/* Pass the vehicle object as a prop */}
+          <Form vehicle={vehicle} />
         </section>
       </section>
     </>
