@@ -1,19 +1,31 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Search from "./Search";
+import { stop } from "@/app/GlobalRedux/features/searchRedux/searchSlice";
+import { useAppDispatch } from "@/app/GlobalRedux/hook";
 
 type SearchModalProps = {
   show: boolean;
   onHide: () => void;
+  searchResult: SearchParamsResult[];
+  setSearchResult: React.Dispatch<React.SetStateAction<SearchParamsResult[]>>;
 };
 
-export default function SearchModal(props: SearchModalProps) {
+export default function SearchModal({
+  show,
+  onHide,
+  searchResult,
+  setSearchResult,
+}: SearchModalProps) {
+  const dispatch = useAppDispatch();
+
+  const handleCloseModal = () => {
+    dispatch(stop()); // Dispatch the stop action when the modal is closed
+    onHide();
+  };
   return (
     <Modal
-      {...props}
+      show={show}
+      onHide={handleCloseModal}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -24,11 +36,9 @@ export default function SearchModal(props: SearchModalProps) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Search />
+        <Search searchResult={searchResult} setSearchResult={setSearchResult} />
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
+      <Modal.Footer></Modal.Footer>
     </Modal>
   );
 }

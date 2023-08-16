@@ -13,7 +13,7 @@ export default async function searchQuery(
   transmissionQuery?: string,
   minPriceQuery?: number | null,
   maxPriceQuery?: number | null
-): Promise<SearchParams[]> {
+): Promise<SearchParamsResult[]> {
   const url = "http://127.0.0.1:3000/api/v1/search";
   const config: { params: ConfigParams } = {
     params: {
@@ -35,7 +35,7 @@ export default async function searchQuery(
   } else {
     config.params.numberFilters = "";
   }
-  const response = await axios.get<SearchParams[]>(url, config);
+  const response = await axios.get<SearchParamsResult[]>(url, config);
   console.log("BS", config);
   if (response.status !== 200) {
     const errorResponse = response.data;
@@ -43,5 +43,6 @@ export default async function searchQuery(
       `Request failed with status ${response.status}, ${errorResponse}`
     );
   }
+
   return response.data;
 }

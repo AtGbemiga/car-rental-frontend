@@ -1,7 +1,16 @@
 "use client";
 import searchQuery from "@/lib/searchQuery";
 import { useState } from "react";
-export default function Search() {
+import { useAppDispatch } from "@/app/GlobalRedux/hook";
+import { start } from "@/app/GlobalRedux/features/searchRedux/searchSlice";
+
+type SearchProps = {
+  searchResult: SearchParamsResult[];
+  setSearchResult: React.Dispatch<React.SetStateAction<SearchParamsResult[]>>;
+};
+
+export default function Search(props: SearchProps) {
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     nameQuery: "",
     typeQuery: "",
@@ -10,7 +19,6 @@ export default function Search() {
     minPriceQuery: null,
     maxPriceQuery: null,
   });
-  const [searchResult, setsearchResult] = useState<SearchParams[]>([]);
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -41,9 +49,10 @@ export default function Search() {
     if (!response) {
       return;
     }
-    console.log("FS", response);
+    console.log(response);
 
-    setsearchResult(response);
+    props.setSearchResult(response);
+    dispatch(start());
   }
 
   const disabled =
@@ -70,9 +79,6 @@ export default function Search() {
             value={formData.nameQuery}
             name="nameQuery"
           />
-          <div id="nameQueryHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
         <div className="mb-3">
           <label htmlFor="typeQuery" className="form-label">
@@ -83,6 +89,7 @@ export default function Search() {
             id="typeQuery"
             onChange={handleChange}
             value={formData.typeQuery}
+            className="form-select"
           >
             <option value="" aria-describedby="" disabled>
               --
@@ -97,9 +104,6 @@ export default function Search() {
               Truck
             </option>
           </select>
-          <div id="typeQueryHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
         <div className="mb-3">
           <label htmlFor="colourQuery" className="form-label">
@@ -114,9 +118,6 @@ export default function Search() {
             value={formData.colourQuery}
             name="colourQuery"
           />
-          <div id="colourQueryHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
         <div className="mb-3">
           <label htmlFor="transmissionQuery" className="form-label">
@@ -127,6 +128,7 @@ export default function Search() {
             id="transmissionQuery"
             onChange={handleChange}
             value={formData.transmissionQuery}
+            className="form-select"
           >
             <option value="" aria-describedby="" disabled>
               --
@@ -138,26 +140,26 @@ export default function Search() {
               Automatic
             </option>
           </select>
-          <div id="nameQueryHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
 
         <section>
-          <label htmlFor="minPriceQuery" className="form-label">
-            Min price
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="minPriceQuery"
-            aria-describedby="priceQueryHelp"
-            value={
-              formData.minPriceQuery !== null ? formData.minPriceQuery : ""
-            }
-            onChange={handleChange}
-            name="minPriceQuery"
-          />
+          <div className="mb-3">
+            <label htmlFor="minPriceQuery" className="form-label">
+              Min price
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="minPriceQuery"
+              aria-describedby="priceQueryHelp"
+              value={
+                formData.minPriceQuery !== null ? formData.minPriceQuery : ""
+              }
+              onChange={handleChange}
+              name="minPriceQuery"
+            />
+          </div>
+
           <div>
             <label htmlFor="maxPriceQuery" className="form-label">
               Max price
