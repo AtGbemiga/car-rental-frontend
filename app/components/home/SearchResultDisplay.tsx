@@ -14,7 +14,7 @@ export default function SearchResultDisplay({ searchResult }: SearchProps) {
   const content = (
     <>
       {searchResult.map((result) => (
-        <div key={result._id} className="col d-flex justify-content-center">
+        <div key={result._id}>
           <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src={result.pictures[0]} />
 

@@ -14,7 +14,7 @@ export default async function searchQuery(
   minPriceQuery?: number | null,
   maxPriceQuery?: number | null
 ): Promise<SearchParamsResult[]> {
-  const url = "http://127.0.0.1:3000/api/v1/search";
+  const url = "https://brainy-clothes-fish.cyclic.app/api/v1/search";
   const config: { params: ConfigParams } = {
     params: {
       name: nameQuery,

@@ -41,12 +41,6 @@ export default function HomeMainBody() {
     fetchData();
   }, [currentPage]);
 
-  useEffect(() => {
-    if (search) {
-      console.log("searchResult:", searchResult);
-    }
-  }, [searchResult]);
-
   const skeleton = Array.from({ length: 6 }, (_, i) => (
     <SkeletonPage key={i} />
   ));
