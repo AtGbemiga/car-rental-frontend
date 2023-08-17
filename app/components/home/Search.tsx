@@ -7,6 +7,8 @@ import { start } from "@/app/GlobalRedux/features/searchRedux/searchSlice";
 type SearchProps = {
   searchResult: SearchParamsResult[];
   setSearchResult: React.Dispatch<React.SetStateAction<SearchParamsResult[]>>;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function Search(props: SearchProps) {
@@ -28,6 +30,8 @@ export default function Search(props: SearchProps) {
     const updatedValue =
       type === "checkbox" ? (event.target as HTMLInputElement).checked : value;
     // console.log(`Updating ${name} to:`, updatedValue);
+    console.log(`Updating ${name} to :`, updatedValue);
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: updatedValue,
@@ -38,6 +42,7 @@ export default function Search(props: SearchProps) {
     event.preventDefault();
 
     const response = await searchQuery(
+      props.currentPage,
       formData.nameQuery,
       formData.typeQuery,
       formData.colourQuery,
@@ -49,7 +54,9 @@ export default function Search(props: SearchProps) {
     if (!response) {
       return;
     }
-    // console.log(response);
+    console.log(props.currentPage);
+
+    console.log(response);
 
     props.setSearchResult(response);
     dispatch(start());
