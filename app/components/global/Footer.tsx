@@ -29,7 +29,7 @@ export default function Footer() {
                 style={{ width: "100%" }}
               />
               <p className={`m-0 py-4 ${styles.footerBackground}`}>
-                Car Rental is the answer to a lot of questions we’ve asked
+                Car Rental is the answer to a lot of questions we&apos;ve asked
                 ourselves: what do we want our cities to look like in the
                 future?
               </p>
@@ -113,8 +113,8 @@ export default function Footer() {
               <h2 className={styles.footerBackground}>Newsletter</h2>
               <p className={styles.footerBackground}>
                 Stay up-to-date with the latest news, exclusive offers, and
-                exciting updates by subscribing to our newsletter. Don't miss
-                out!
+                exciting updates by subscribing to our newsletter. Don&apos;t
+                miss out!
               </p>
               <div className="input-group mb-3">
                 <input

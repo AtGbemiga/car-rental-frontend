@@ -1,6 +1,12 @@
-export default async function getAllVehicles() {
+export default async function getAllVehicles(pageVariable: number) {
   const url = "https://brainy-clothes-fish.cyclic.app/api/v1/vehicles";
-  const response = await fetch(url);
+  const params = new URLSearchParams({
+    page: pageVariable.toString(),
+  });
+
+  const urlWithParams = `${url}?${params}`;
+
+  const response = await fetch(urlWithParams);
 
   if (!response.ok) {
     const errorResponse = await response.json();
@@ -10,5 +16,5 @@ export default async function getAllVehicles() {
   }
 
   const data = await response.json();
-  return data.vehicles;
+  return data;
 }

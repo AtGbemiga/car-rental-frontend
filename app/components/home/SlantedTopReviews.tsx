@@ -44,8 +44,8 @@ export const SlantedTopReviewTwo = () => {
 
           <p className="card-text">
             I loved the personable text communication in addition to the clean,
-            and expend vehicle I was given. Excellent company and I won't rent
-            another way again.
+            and expend vehicle I was given. Excellent company and I won&apos;t
+            rent another way again.
           </p>
           <p>Gemini</p>
         </div>

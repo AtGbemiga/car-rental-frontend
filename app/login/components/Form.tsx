@@ -46,7 +46,6 @@ export const LoginForm = () => {
         await loginFunction(body);
         router.push("/profile");
       } catch (error) {
-        console.log("Err", error);
         if (error instanceof Error && error.message.includes("401")) {
           setErrorMessage("Invalid Credentials");
         } else if (error instanceof Error && error.message.includes("400")) {
@@ -102,7 +101,7 @@ export const LoginForm = () => {
       <p className="error-message text-danger">{errorMessage}</p>
 
       <article>
-        Don't have an account?{" "}
+        Don&apos;t have an account?{" "}
         <Link href="/sign-up" className="text-decoration-none">
           Sign Up
         </Link>
