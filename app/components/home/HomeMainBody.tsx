@@ -50,11 +50,15 @@ export default function HomeMainBody() {
       style={{ backgroundColor: "#f8f9fa" }}
     >
       {search ? (
-        <div
-          className={Styles.search_result_container}
-          style={{ border: "1px solid red" }}
-        >
+        <div className={Styles.search_result_container}>
           <SearchResultDisplay searchResult={searchResult} />
+          {/* {searchResult.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPage={totalPage}
+            />
+          )} */}
         </div>
       ) : (
         <div

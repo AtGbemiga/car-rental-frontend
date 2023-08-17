@@ -36,7 +36,6 @@ export default async function searchQuery(
     config.params.numberFilters = "";
   }
   const response = await axios.get<SearchParamsResult[]>(url, config);
-  console.log("BS", config);
   if (response.status !== 200) {
     const errorResponse = response.data;
     throw new Error(

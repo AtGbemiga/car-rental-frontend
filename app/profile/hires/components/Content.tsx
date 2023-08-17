@@ -12,7 +12,6 @@ export const Content = () => {
     const fetchHire = async () => {
       const hireData = await getAllHireFunction();
       setHire(hireData);
-      console.log(hireData);
     };
     fetchHire();
   }, []);

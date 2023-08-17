@@ -37,18 +37,15 @@ export const SignUpForm = () => {
 
     if (!isValidEmail) {
       setEmailError(true);
-      return; // Stop form submission
+      return;
     }
 
     try {
       await signUpFunction(body);
-      // Registration successful, redirect to profile page
       router.push("/profile");
     } catch (error) {
       if (error instanceof Error && error.message.includes("Duplicate")) {
-        console.log("Err", error.message);
         setErrorMessage("Email already exists");
-        // Handle duplicate account error
       } else if (error instanceof Error && error.message.includes("password")) {
         setPasswordError("Please provide password");
       } else {

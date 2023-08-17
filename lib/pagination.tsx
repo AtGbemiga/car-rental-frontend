@@ -16,6 +16,5 @@ export default async function getAllVehicles(pageVariable: number) {
   }
 
   const data = await response.json();
-  console.log(data);
   return data;
 }

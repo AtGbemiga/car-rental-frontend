@@ -49,7 +49,7 @@ export default function Search(props: SearchProps) {
     if (!response) {
       return;
     }
-    console.log(response);
+    // console.log(response);
 
     props.setSearchResult(response);
     dispatch(start());
