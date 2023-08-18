@@ -8,25 +8,21 @@ import SkeletonPage from "./ImgSkeleton";
 import Pagination from "./Pagination";
 import SearchModal from "./SearchModal";
 import { SearchIconSvg } from "./SearchIconSvg";
-import { Provider } from "react-redux";
-import { store } from "@/app/GlobalRedux/store";
-import { useAppSelector } from "@/app/GlobalRedux/hook";
-import { RootState } from "@/app/GlobalRedux/store";
-import {
-  start,
-  stop,
-  selectSearch,
-} from "@/app/GlobalRedux/features/searchRedux/searchSlice";
+import { useAppSelector, useAppDispatch } from "@/app/GlobalRedux/hook";
 import SearchResultDisplay from "./SearchResultDisplay";
-import { Providers } from "@/app/GlobalRedux/provider";
 import Styles from "./style.module.css";
+import {
+  totalPagesInDB,
+  paginationSearch,
+} from "@/app/GlobalRedux/features/pagination/paginationSlice";
+import { showSearchContainer } from "@/app/GlobalRedux/features/searchRedux/searchSlice";
 
 export default function HomeMainBody() {
-  const search = useAppSelector((state: RootState) => state.searches.value);
+  const dispatch = useAppDispatch();
+  const search = useAppSelector(showSearchContainer);
+  const currentPage = useAppSelector(paginationSearch);
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
   const [modalShow, setModalShow] = useState(false);
   const [searchResult, setsearchResult] = useState<SearchParamsResult[]>([]);
 
@@ -35,11 +31,11 @@ export default function HomeMainBody() {
       setIsLoading(true);
       const data = await getAllVehicles(currentPage);
       setVehicles(data.vehicles);
-      setTotalPage(Math.ceil(data.count / 3));
+      dispatch(totalPagesInDB(Math.ceil(data.count / 3))); // Divide by the limit(total items per page)
       setIsLoading(false);
     };
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, dispatch]);
 
   const skeleton = Array.from({ length: 6 }, (_, i) => (
     <SkeletonPage key={i} />
@@ -52,13 +48,7 @@ export default function HomeMainBody() {
       {search ? (
         <div className={Styles.search_result_container}>
           <SearchResultDisplay searchResult={searchResult} />
-          {/* {searchResult.length > 0 && (
-            <Pagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPage={totalPage}
-            />
-          )} */}
+          {searchResult.length > 0 && <Pagination />}
         </div>
       ) : (
         <div
@@ -94,13 +84,7 @@ export default function HomeMainBody() {
             )}
           </section>
 
-          {vehicles.length > 0 && (
-            <Pagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPage={totalPage}
-            />
-          )}
+          {vehicles.length > 0 && <Pagination />}
         </div>
       )}
     </div>

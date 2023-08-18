@@ -25,6 +25,6 @@ export const searchSlice = createSlice({
 
 export const { start, stop } = searchSlice.actions;
 
-export const selectSearch = (state: RootState) => state.searches.value;
+export const showSearchContainer = (state: RootState) => state.searches.value;
 
 export default searchSlice.reducer;

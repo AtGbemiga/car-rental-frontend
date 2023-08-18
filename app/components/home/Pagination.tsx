@@ -1,29 +1,29 @@
-interface Props {
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  totalPage: number;
-}
-export default function Pagination({
-  currentPage,
-  setCurrentPage,
-  totalPage,
-}: Props) {
+import { useAppDispatch, useAppSelector } from "@/app/GlobalRedux/hook";
+import {
+  next,
+  prev,
+  totalPagesInDBState,
+  paginationSearch,
+} from "../../GlobalRedux/features/pagination/paginationSlice";
+
+export default function Pagination() {
+  const currentPage = useAppSelector(paginationSearch);
+  const totalPagesInDB = useAppSelector(totalPagesInDBState);
+  const dispatch = useAppDispatch();
   const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
+    dispatch(next());
   };
 
   const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    dispatch(prev());
   };
 
   return (
     <div className="d-flex flex-row justify-content-center my-5 align-items-center gap-3 ">
       <button
         onClick={handlePreviousPage}
-        disabled={currentPage === 1}
         className="btn btn-outline-dark"
+        disabled={currentPage === 1}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -41,12 +41,12 @@ export default function Pagination({
         Back
       </button>
       <div>
-        Page {currentPage} of {totalPage}
+        Page {currentPage} of {totalPagesInDB}
       </div>
       <button
         onClick={handleNextPage}
-        disabled={currentPage === totalPage}
         className="btn btn-outline-dark"
+        disabled={currentPage === totalPagesInDB}
       >
         Next{" "}
         <svg
