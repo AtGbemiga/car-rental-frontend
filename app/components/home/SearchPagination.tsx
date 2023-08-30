@@ -1,32 +1,25 @@
-import { useAppDispatch, useAppSelector } from "@/app/GlobalRedux/hook";
+import { useAppSelector, useAppDispatch } from "@/app/GlobalRedux/hook";
 import {
-  next,
-  prev,
-  totalPagesInDBHomeState,
-  paginationSearch,
+  forward,
+  backward,
+  currentSearchPage,
 } from "../../GlobalRedux/features/pagination/paginationSlice";
-
-export default function Pagination() {
-  const currentPage = useAppSelector(paginationSearch);
-  const totalPagesInDB = useAppSelector(totalPagesInDBHomeState);
+export default function SearchPagination() {
   const dispatch = useAppDispatch();
+  const currentSearchPages = useAppSelector(currentSearchPage);
   const handleNextPage = () => {
-    dispatch(next());
-    console.log(currentPage);
+    dispatch(forward());
+    console.log("fw", currentSearchPages);
   };
 
   const handlePreviousPage = () => {
-    dispatch(prev());
-    console.log(currentPage);
+    dispatch(backward());
+    console.log("fw", currentSearchPages);
   };
 
   return (
     <div className="d-flex flex-row justify-content-center my-5 align-items-center gap-3 ">
-      <button
-        onClick={handlePreviousPage}
-        className="btn btn-outline-dark"
-        disabled={currentPage === 1}
-      >
+      <button onClick={handlePreviousPage} className="btn btn-outline-dark">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -42,14 +35,8 @@ export default function Pagination() {
         </svg>{" "}
         Back
       </button>
-      <div>
-        Page {currentPage} of {totalPagesInDB}
-      </div>
-      <button
-        onClick={handleNextPage}
-        className="btn btn-outline-dark"
-        disabled={currentPage === totalPagesInDB}
-      >
+      <div></div>
+      <button onClick={handleNextPage} className="btn btn-outline-dark">
         Next{" "}
         <svg
           xmlns="http://www.w3.org/2000/svg"

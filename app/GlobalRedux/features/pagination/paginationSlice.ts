@@ -4,13 +4,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "@/app/GlobalRedux/store";
 
 interface PageState {
-  value: number;
-  totalPagesInDB: number;
+  currentHomePage: number;
+  totalPagesInDBHome: number;
+  currentSearchPage: number;
 }
 
 const initialState: PageState = {
-  value: 1,
-  totalPagesInDB: 1,
+  currentHomePage: 1,
+  totalPagesInDBHome: 1,
+  currentSearchPage: 1,
 } as PageState;
 
 export const paginationSlice = createSlice({
@@ -18,21 +20,41 @@ export const paginationSlice = createSlice({
   initialState,
   reducers: {
     next: (state) => {
-      state.value += 1;
+      state.currentHomePage += 1;
     },
     prev: (state) => {
-      if (state.value > 1) state.value -= 1;
+      if (state.currentHomePage > 1) state.currentHomePage -= 1;
     },
-    totalPagesInDB: (state, action: PayloadAction<number>) => {
-      state.totalPagesInDB = action.payload;
+    totalPagesInDBHome: (state, action: PayloadAction<number>) => {
+      state.totalPagesInDBHome = action.payload;
     },
+    reset: (state) => {
+      (state.currentHomePage = initialState.currentHomePage),
+        (state.totalPagesInDBHome = initialState.totalPagesInDBHome);
+    },
+    forward: (state) => {
+      state.currentSearchPage += 1;
+    },
+    backward: (state) => {
+      if (state.currentSearchPage > 1) state.currentHomePage -= 1;
+    },
+    // totalPagesInDBHome: (state, action: PayloadAction<number>) => {
+    //   state.totalPagesInDBHome = action.payload;
+    // },
   },
 });
 
-export const { next, prev, totalPagesInDB } = paginationSlice.actions;
+export const { next, prev, totalPagesInDBHome, reset, forward, backward } =
+  paginationSlice.actions;
 
-export const paginationSearch = (state: RootState) => state.pagination.value;
-export const totalPagesInDBState = (state: RootState) =>
-  state.pagination.totalPagesInDB;
+// For home page
+export const paginationSearch = (state: RootState) =>
+  state.pagination.currentHomePage;
+export const totalPagesInDBHomeState = (state: RootState) =>
+  state.pagination.totalPagesInDBHome;
+
+// For search page
+export const currentSearchPage = (state: RootState) =>
+  state.pagination.currentSearchPage;
 
 export default paginationSlice.reducer;

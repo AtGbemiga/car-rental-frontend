@@ -7,15 +7,18 @@ type SearchParams = {
 };
 
 type SearchParamsResult = {
-  _id: number;
-  name: string;
-  pictures: string[];
-  description: string;
-  colour: string;
-  transmission: string;
-  type: string;
-  seat: number;
-  price: number;
-  date: string;
-  createdBy: string;
+  final: {
+    _id: number;
+    name: string;
+    pictures: string[];
+    description: string;
+    colour: string;
+    transmission: string;
+    type: string;
+    seat: number;
+    price: number;
+    date: string;
+    createdBy: string;
+  }[];
+  count: number;
 };

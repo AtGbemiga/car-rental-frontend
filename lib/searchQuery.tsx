@@ -31,12 +31,16 @@ export default async function searchQuery(
   }
   params.set("numberFilters", numberFilters);
 
+  // Log the parameters before making the API call
+  console.log("Search Parameters:", params.toString());
+
   const result = await axios.get(url, { params });
 
   if (!result.data) {
     throw new Error(`Request failed with status ${result.status}`);
   }
-  console.log(result);
+
+  console.log(result.data);
 
   return result.data;
 }

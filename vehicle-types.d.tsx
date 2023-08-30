@@ -11,3 +11,8 @@ type Vehicle = {
   date: string;
   createdBy: string;
 };
+
+type VehicleRes = {
+  vehicles: Vehicle[];
+  count: number;
+};

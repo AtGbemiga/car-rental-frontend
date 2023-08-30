@@ -1,4 +1,6 @@
-export default async function getAllVehicles(currentPage: number) {
+export default async function getAllVehicles(
+  currentPage: number
+): Promise<VehicleRes[]> {
   const url = "http://127.0.0.1:3000/api/v1/vehicles";
   const params = new URLSearchParams({
     page: currentPage.toString(),
@@ -11,7 +13,9 @@ export default async function getAllVehicles(currentPage: number) {
   if (!response.ok) {
     const errorResponse = await response.json();
     throw new Error(
-      `Request failed with status ${response.status}, ${errorResponse}`
+      `Request failed with status ${response.status}, ${Object.entries(
+        errorResponse
+      )}`
     );
   }
 

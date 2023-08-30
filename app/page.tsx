@@ -6,10 +6,10 @@ import styles from "./components/home/style.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.main}>
+    <main className={styles.main}>
       <HeroImgContainer />
       <HomeMainBody />
       <SlantedTopContainer />
-    </div>
+    </main>
   );
 }

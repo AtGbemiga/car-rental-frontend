@@ -1,18 +1,16 @@
 "use client";
 import searchQuery from "@/lib/searchQuery";
 import { useState } from "react";
-import { useAppDispatch } from "@/app/GlobalRedux/hook";
+import { useAppDispatch, useAppSelector } from "@/app/GlobalRedux/hook";
 import { start } from "@/app/GlobalRedux/features/searchRedux/searchSlice";
+import {
+  reset,
+  currentSearchPage,
+} from "@/app/GlobalRedux/features/pagination/paginationSlice";
 
-type SearchProps = {
-  searchResult: SearchParamsResult[];
-  setSearchResult: React.Dispatch<React.SetStateAction<SearchParamsResult[]>>;
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-};
-
-export default function Search(props: SearchProps) {
+export default function Search() {
   const dispatch = useAppDispatch();
+  const currentSearchPages = useAppSelector(currentSearchPage);
   const [formData, setFormData] = useState({
     nameQuery: "",
     typeQuery: "",
@@ -21,6 +19,7 @@ export default function Search(props: SearchProps) {
     minPriceQuery: null,
     maxPriceQuery: null,
   });
+  const [searchRes, setSearchRes] = useState("")
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -30,7 +29,6 @@ export default function Search(props: SearchProps) {
     const updatedValue =
       type === "checkbox" ? (event.target as HTMLInputElement).checked : value;
     // console.log(`Updating ${name} to:`, updatedValue);
-    console.log(`Updating ${name} to :`, updatedValue);
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -40,9 +38,10 @@ export default function Search(props: SearchProps) {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    const response = await searchQuery(
-      props.currentPage,
+    dispatch(reset());
+    let currentPage = currentSearchPages;
+    const data = await searchQuery(
+      currentPage,
       formData.nameQuery,
       formData.typeQuery,
       formData.colourQuery,
@@ -51,14 +50,11 @@ export default function Search(props: SearchProps) {
       formData.maxPriceQuery ?? null
     );
 
-    if (!response) {
+    if (!data) {
       return;
     }
-    console.log(props.currentPage);
+    console.log(data);
 
-    console.log(response);
-
-    props.setSearchResult(response);
     dispatch(start());
   }
 

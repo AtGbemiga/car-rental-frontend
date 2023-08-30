@@ -1,10 +1,12 @@
 "use client";
 import { configureStore } from "@reduxjs/toolkit";
 import searchReducer from "./features/searchRedux/searchSlice";
+import paginationReducer from "./features/pagination/paginationSlice";
 
 export const store = configureStore({
   reducer: {
     searches: searchReducer,
+    pagination: paginationReducer,
   },
 });
 
