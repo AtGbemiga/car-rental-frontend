@@ -19,7 +19,7 @@ export default function HomeMainBody() {
   const dispatch = useAppDispatch();
   const isSearchContainer = useAppSelector(showSearchContainer);
   const currentPage = useAppSelector(paginationSearch);
-  const [vehicles, setVehicles] = useState<VehicleRes[]>([]);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [modalShow, setModalShow] = useState(false);
   useEffect(() => {
@@ -27,25 +27,16 @@ export default function HomeMainBody() {
       const fetchData = async () => {
         setIsLoading(true);
 
-        const data = getAllVehicles(currentPage);
-        const dataAwait = await data
+        const data = await getAllVehicles(currentPage);
 
-        const t = [1, 2]
-        console.log(Array.isArray(t));
-        
-
-        console.log(Object.values(data));
-
-        console.log(data);
-
-        setVehicles(data);
+        setVehicles(data.vehicles);
 
         dispatch(totalPagesInDBHome(Math.ceil(data.count / 3)));
         setIsLoading(false);
       };
       fetchData();
     }
-  }, [dispatch]);
+  }, [dispatch, currentPage, isSearchContainer]);
 
   const skeleton = Array.from({ length: 6 }, (_, i) => (
     <SkeletonPage key={i} />
@@ -75,7 +66,7 @@ export default function HomeMainBody() {
             <div className="skeleton-page-global">{skeleton}</div>
           ) : (
             <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
-              {vehicles.map((vehicle) => (
+              {vehicles?.map((vehicle) => (
                 <div className="col" key={vehicle._id}>
                   <VehicleCard vehicle={vehicle} />
                 </div>
@@ -84,7 +75,7 @@ export default function HomeMainBody() {
           )}
         </section>
 
-        {vehicles.length > 0 && <Pagination />}
+        {vehicles && <Pagination />}
       </div>
     </div>
   );

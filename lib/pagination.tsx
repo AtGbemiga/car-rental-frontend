@@ -1,6 +1,6 @@
 export default async function getAllVehicles(
   currentPage: number
-): Promise<VehicleRes[]> {
+): Promise<VehicleRes> {
   const url = "http://127.0.0.1:3000/api/v1/vehicles";
   const params = new URLSearchParams({
     page: currentPage.toString(),
