@@ -5,10 +5,6 @@ export default async function getAllHireFunction(): Promise<GetHireResponse> {
 
   const token = Cookies.get("token");
 
-  if (!token) {
-    throw new Error("No token found.");
-  }
-
   const response = await fetch(url, {
     method: "GET",
     headers: {
